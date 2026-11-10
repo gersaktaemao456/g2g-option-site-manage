@@ -1,48 +1,24 @@
 "use client";
-
-import { useEffect, useState } from "react";
-
-const fields = [
-  ["brand", "ชื่อแบรนด์"], ["eyebrow", "ข้อความเล็กเหนือหัวข้อ"],
-  ["headline", "หัวข้อหลัก"], ["highlight", "ข้อความเน้นสี"],
-  ["description", "คำอธิบาย"], ["registerLabel", "ข้อความปุ่มสมัครสมาชิก"],
-  ["registerUrl", "ลิงก์สมัครสมาชิก"], ["loginLabel", "ข้อความปุ่มเข้าสู่ระบบ"],
-  ["loginUrl", "ลิงก์เข้าสู่ระบบ"], ["contactLabel", "ข้อความปุ่มติดต่อ"],
-  ["contactUrl", "ลิงก์ติดต่อ"], ["metaPixelId", "Meta Pixel ID"],
-  ["tiktokPixelId", "TikTok Pixel ID"]
-];
-
-export default function AdminPage() {
-  const [config, setConfig] = useState({});
-  const [password, setPassword] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
-  const [status, setStatus] = useState("");
-  useEffect(() => { fetch("/api/config").then(r => r.json()).then(setConfig).catch(() => {}); }, []);
-  function update(key, value) { setConfig(old => ({ ...old, [key]: value })); }
-  async function save() {
-    setStatus("กำลังบันทึก...");
-    const res = await fetch("/api/admin/config", { method: "PUT", headers: { "Content-Type": "application/json", "x-admin-password": password }, body: JSON.stringify(config) });
-    const data = await res.json();
-    setStatus(res.ok ? "บันทึกสำเร็จ" : (data.error || "บันทึกไม่สำเร็จ"));
-  }
-  return <main className="admin-shell">
-    <a className="back-link" href="/">← กลับหน้าเว็บไซต์</a>
-    <div className="admin-card">
-      <div className="eyebrow">G2G OPTION / CONTROL PANEL</div>
-      <h1>จัดการเว็บไซต์</h1>
-      {!unlocked ? <form onSubmit={e => { e.preventDefault(); setUnlocked(true); }} className="login-form">
-        <label>รหัสผ่านผู้ดูแลระบบ</label>
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="กรอกรหัสผ่าน" required />
-        <button className="btn btn-primary" type="submit">เข้าสู่ระบบจัดการ</button>
-      </form> : <>
-        <p className="muted">แก้ไขข้อมูลแล้วกดบันทึก ระบบจะจัดเก็บค่าลง GitHub ของโปรเจกต์นี้</p>
-        <div className="admin-fields">{fields.map(([key, label]) => <label key={key}>{label}
-          {key === "description" ? <textarea rows="3" value={config[key] || ""} onChange={e => update(key, e.target.value)} /> :
-          <input value={config[key] || ""} onChange={e => update(key, e.target.value)} />}
-        </label>)}</div>
-        <button className="btn btn-primary save-btn" onClick={save}>บันทึกการตั้งค่า</button>
-        {status && <p className="status">{status}</p>}
-      </>}
-    </div>
-  </main>;
+import {useState} from "react";
+const defaults={brand:"G2G OPTION",eyebrow:"OFFICIAL WEBSITE",headline:"ก้าวเข้าสู่ประสบการณ์ใหม่",highlight:"ในแบบ G2G OPTION",description:"ยินดีต้อนรับสู่ G2G OPTION",registerLabel:"สมัครสมาชิก",registerUrl:"",loginLabel:"เข้าสู่ระบบ",loginUrl:"",contactLabel:"ติดต่อเรา",contactUrl:"",logoUrl:"",bannerUrl:"",metaPixelId:"",metaTestCode:"",metaEvents:["PageView","Subscribe","Contact"],tiktokPixelId:"",tiktokTestCode:"",tiktokEvents:["PageView","Subscribe","Contact"],lineUrl:"",lineTagId:"",customCode:""};
+const events=["PageView","ViewContent","Lead","Purchase","Subscribe","Contact"];
+function Field({label,value,onChange,placeholder="",type="text"}){return <label>{label}<input type={type} value={value??""} placeholder={placeholder} onChange={e=>onChange(e.target.value)}/></label>}
+function EventList({value=[],onChange}){return <div className="events">{events.map(x=><label className="check" key={x}><input type="checkbox" checked={value.includes(x)} onChange={e=>onChange(e.target.checked?[...value,x]:value.filter(v=>v!==x))}/>{x}</label>)}</div>}
+export default function AdminPage(){
+ const [password,setPassword]=useState("");const [unlocked,setUnlocked]=useState(false);const [config,setConfig]=useState(defaults);const [status,setStatus]=useState("");const [busy,setBusy]=useState(false);
+ const set=(k,v)=>setConfig(old=>({...old,[k]:v}));
+ async function load(){setBusy(true);try{const r=await fetch("/api/config",{cache:"no-store"});const d=await r.json();setConfig({...defaults,...d}) ;setStatus("โหลดค่าล่าสุดแล้ว")}catch{setStatus("โหลดข้อมูลไม่สำเร็จ")}finally{setBusy(false)}}
+ async function login(e){e.preventDefault();setBusy(true);setStatus("");try{const r=await fetch("/api/admin/config",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-password":password},body:JSON.stringify({...defaults,...config})});const d=await r.json();if(r.ok){setUnlocked(true);await load();setStatus("ยืนยันรหัสผ่านแล้ว")}else setStatus(d.error||"ตรวจสอบรหัสผ่านไม่สำเร็จ")}catch{setStatus("เชื่อมต่อระบบไม่สำเร็จ")}finally{setBusy(false)}}
+ async function save(){setBusy(true);setStatus("กำลังบันทึก...");try{const r=await fetch("/api/admin/config",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-password":password},body:JSON.stringify(config)});const d=await r.json();setStatus(r.ok?"✓ "+(d.message||"บันทึกสำเร็จ"):"✕ "+(d.error||"บันทึกไม่สำเร็จ"))}catch{setStatus("เชื่อมต่อ GitHub ไม่สำเร็จ")}finally{setBusy(false)}}
+ const section={background:"#111722",border:"1px solid #29364a",borderRadius:15,padding:20,marginTop:16};
+ const css=`*{box-sizing:border-box}.admin{max-width:1100px;margin:auto;padding:28px 18px 70px;color:#edf3ff;font-family:Arial,'Noto Sans Thai',sans-serif}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.tag{color:#9fc4ff;background:#142b4c;border:1px solid #31588c;border-radius:30px;padding:5px 11px;font-size:11px;letter-spacing:1px}.muted{color:#94a3b8;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.admin h1{font-size:27px;margin:10px 0 4px}.admin h2{font-size:17px;color:#a9caff;margin:0 0 15px}.admin label:not(.check){display:grid;gap:7px;font-size:13px;color:#c5d0e0;margin:12px 0}.admin input:not([type=checkbox]),.admin textarea{width:100%;background:#090e16;color:#edf3ff;border:1px solid #2d3b50;border-radius:9px;padding:12px;outline:none}.admin textarea{min-height:110px;resize:vertical}.admin button{border:0;border-radius:9px;padding:12px 18px;background:#397ce0;color:white;font-weight:700;cursor:pointer}.admin button:disabled{opacity:.6}.admin .secondary{background:#202b3b;border:1px solid #35455e}.events{display:flex;flex-wrap:wrap;gap:12px}.check{display:flex!important;align-items:center;gap:7px!important;margin:7px 0!important}.check input{accent-color:#4d91f4}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}.login{max-width:450px;margin:12vh auto;background:#111722;border:1px solid #29364a;border-radius:16px;padding:26px}.status{font-size:13px;color:#a9caff}.warning{font-size:12px;color:#e6bd75}.admin a{color:#a9caff}@media(max-width:650px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.admin{padding:18px 12px 50px}}`;
+ if(!unlocked)return <main className="admin"><style>{css}</style><form className="login" onSubmit={login}><span className="tag">G2G OPTION · ADMIN</span><h1>เข้าสู่ระบบหลังบ้าน</h1><p className="muted">ใช้รหัสผ่านเดียวกับค่า ADMIN_PASSWORD ใน Vercel</p><label>รหัสผ่านผู้ดูแล<input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required/></label><button disabled={busy} style={{width:"100%"}}>{busy?"กำลังตรวจสอบ...":"เข้าสู่ระบบ"}</button><p className="status">{status}</p></form></main>;
+ return <main className="admin"><style>{css}</style><header className="top"><div><span className="tag">G2G OPTION · CONTROL PANEL</span><h1>Dashboard & จัดการเว็บไซต์</h1><p className="muted">จัดการแบรนด์ ปุ่มหลัก และ Tracking ในที่เดียว</p></div><a href="/">← กลับหน้าเว็บไซต์</a></header>
+ <section style={section}><h2>ข้อมูลแบรนด์และหน้าแรก</h2><div className="grid"><Field label="ชื่อแบรนด์" value={config.brand} onChange={v=>set("brand",v)}/><Field label="ข้อความเหนือหัวข้อ" value={config.eyebrow} onChange={v=>set("eyebrow",v)}/><Field label="หัวข้อหลัก" value={config.headline} onChange={v=>set("headline",v)}/><Field label="ข้อความเน้นสี" value={config.highlight} onChange={v=>set("highlight",v)}/></div><Field label="คำอธิบาย" value={config.description} onChange={v=>set("description",v)}/><div className="grid"><Field label="URL โลโก้" value={config.logoUrl} onChange={v=>set("logoUrl",v)}/><Field label="URL แบนเนอร์" value={config.bannerUrl} onChange={v=>set("bannerUrl",v)}/></div></section>
+ <section style={section}><h2>ปุ่มหลักและช่องทางติดต่อ</h2><div className="grid"><Field label="ข้อความปุ่มสมัคร" value={config.registerLabel} onChange={v=>set("registerLabel",v)}/><Field label="ลิงก์สมัครสมาชิก" value={config.registerUrl} onChange={v=>set("registerUrl",v)} placeholder="https://..."/><Field label="ข้อความปุ่มเข้าสู่ระบบ" value={config.loginLabel} onChange={v=>set("loginLabel",v)}/><Field label="ลิงก์เข้าสู่ระบบ" value={config.loginUrl} onChange={v=>set("loginUrl",v)} placeholder="https://..."/><Field label="ข้อความปุ่มติดต่อ" value={config.contactLabel} onChange={v=>set("contactLabel",v)}/><Field label="ลิงก์ติดต่อ" value={config.contactUrl} onChange={v=>set("contactUrl",v)} placeholder="https://..."/><Field label="LINE URL" value={config.lineUrl} onChange={v=>set("lineUrl",v)} placeholder="https://line.me/..."/><Field label="LINE Tag ID" value={config.lineTagId} onChange={v=>set("lineTagId",v)}/></div></section>
+ <section style={section}><h2>Meta Pixel</h2><div className="grid"><Field label="Meta Pixel ID" value={config.metaPixelId} onChange={v=>set("metaPixelId",v)}/><Field label="Test Event Code" value={config.metaTestCode} onChange={v=>set("metaTestCode",v)}/></div><p className="muted">Events ที่ต้องการติดตาม</p><EventList value={config.metaEvents||[]} onChange={v=>set("metaEvents",v)}/><p className="warning">Access Token ให้ตั้งเป็น Environment Variable ใน Vercel เท่านั้น ห้ามเก็บในไฟล์ตั้งค่าที่ API สาธารณะอ่านได้</p></section>
+ <section style={section}><h2>TikTok Pixel & Events API</h2><div className="grid"><Field label="TikTok Pixel ID" value={config.tiktokPixelId} onChange={v=>set("tiktokPixelId",v)}/><Field label="Test Event Code" value={config.tiktokTestCode} onChange={v=>set("tiktokTestCode",v)}/></div><p className="muted">Events ที่ต้องการติดตาม</p><EventList value={config.tiktokEvents||[]} onChange={v=>set("tiktokEvents",v)}/><p className="warning">Events API Access Token ต้องเก็บใน Vercel Environment Variables ไม่บันทึกลงไฟล์สาธารณะ</p></section>
+ <section style={section}><h2>Custom Tracking & Custom Code</h2><p className="muted">จัดเก็บโค้ดสำหรับตรวจสอบก่อนนำไปติดตั้งจริง ไม่รันโค้ดที่วางในช่องนี้โดยอัตโนมัติ</p><label>HTML / JavaScript<textarea value={config.customCode||""} onChange={e=>set("customCode",e.target.value)} placeholder="วางโค้ดที่ต้องการจัดเก็บ..."/></label></section>
+ <div className="actions"><button disabled={busy} onClick={save}>{busy?"กำลังบันทึก...":"บันทึกการตั้งค่าทั้งหมด"}</button><button className="secondary" disabled={busy} onClick={load}>โหลดค่าล่าสุด</button><span className="status">{status}</span></div>
+ </main>;
 }
