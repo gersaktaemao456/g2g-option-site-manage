@@ -3,13 +3,30 @@
   "eyebrow": "OFFICIAL WEBSITE",
   "headline": "ก้าวเข้าสู่ประสบการณ์ใหม่",
   "highlight": "ในแบบ G2G OPTION",
-  "description": "ยินดีต้อนรับสู่ G2G OPTION เลือกช่องทางที่ต้องการและเชื่อมต่อกับเราได้อย่างสะดวก",
-  "registerUrl": "#",
-  "loginUrl": "#",
-  "contactUrl": "#",
+  "description": "ยินดีต้อนรับสู่ G2G OPTION",
   "registerLabel": "สมัครสมาชิก",
+  "registerUrl": "",
   "loginLabel": "เข้าสู่ระบบ",
+  "loginUrl": "",
   "contactLabel": "ติดต่อเรา",
+  "contactUrl": "",
+  "logoUrl": "",
+  "bannerUrl": "",
   "metaPixelId": "",
-  "tiktokPixelId": ""
+  "metaTestCode": "",
+  "metaEvents": [
+    "PageView",
+    "Subscribe",
+    "Contact"
+  ],
+  "tiktokPixelId": "",
+  "tiktokTestCode": "",
+  "tiktokEvents": [
+    "PageView",
+    "Subscribe",
+    "Contact"
+  ],
+  "lineUrl": "",
+  "lineTagId": "",
+  "customCode": ""
 }
