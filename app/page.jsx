@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const defaults = {
   brand: "G2G OPTION", eyebrow: "OFFICIAL WEBSITE",
@@ -12,8 +12,23 @@ const defaults = {
 
 export default function Home() {
   const [c, setC] = useState(defaults);
+  const audioRef = useRef(null);
   useEffect(() => { fetch("/api/config").then(r => r.json()).then(data => setC({ ...defaults, ...data })).catch(() => {}); }, []);
-  return <main>
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.35;
+    const attemptPlay = () => { const result = audio.play(); if (result?.catch) result.catch(() => {}); };
+    attemptPlay();
+    const startAfterGesture = () => { attemptPlay(); };
+    window.addEventListener("pointerdown", startAfterGesture, { once: true, passive: true });
+    window.addEventListener("keydown", startAfterGesture, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", startAfterGesture);
+      window.removeEventListener("keydown", startAfterGesture);
+    };
+  }, []);
+  return <main>\n    <audio ref={audioRef} src="https://image.xcoptech.net/biolink-refactor//59aa01f5-2d5b-4bff-b61e-aeb71d01689c.mp3" autoPlay loop preload="auto" playsInline />
     <div className="ambient" />
     <header className="nav"><div className="container nav-inner">
       <a className="brand" href="/"><span className="brand-mark">G2G</span><span>{c.brand}<small>OFFICIAL</small></span></a>
