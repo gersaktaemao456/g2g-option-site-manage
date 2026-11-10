@@ -24,7 +24,9 @@
   "tiktokEvents": [
     "PageView",
     "Subscribe",
-    "Contact"
+    "Contact",
+    "ViewContent",
+    "Lead"
   ],
   "lineUrl": "https://line.me/ti/p/~@928gjhls",
   "lineTagId": "",
