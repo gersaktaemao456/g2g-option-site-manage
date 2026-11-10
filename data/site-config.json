@@ -5,11 +5,11 @@
   "highlight": "ในแบบ G2G OPTION",
   "description": "ยินดีต้อนรับสู่ G2G OPTION",
   "registerLabel": "สมัครสมาชิก",
-  "registerUrl": "https://g2g928.today/register?partner_wide888",
+  "registerUrl": "",
   "loginLabel": "เข้าสู่ระบบ",
-  "loginUrl": "https://g2g928.today/register?partner_wide888",
+  "loginUrl": "",
   "contactLabel": "ติดต่อเรา",
-  "contactUrl": "https://line.me/ti/p/~@928gjhls",
+  "contactUrl": "",
   "logoUrl": "",
   "bannerUrl": "",
   "metaPixelId": "",
@@ -26,7 +26,7 @@
     "Subscribe",
     "Contact"
   ],
-  "lineUrl": "https://line.me/ti/p/~@928gjhls",
+  "lineUrl": "",
   "lineTagId": "",
   "customCode": ""
 }
