@@ -5,9 +5,9 @@
   "highlight": "ในแบบ G2G OPTION",
   "description": "ยินดีต้อนรับสู่ G2G OPTION",
   "registerLabel": "สมัครสมาชิก",
-  "registerUrl": "https://g2g928.today/register?partner_wide888",
+  "registerUrl": "https://liff.line.me/2012556943-x9l6RiGV",
   "loginLabel": "เข้าสู่ระบบ",
-  "loginUrl": "https://g2g928.today/register?partner_wide888",
+  "loginUrl": "https://liff.line.me/2012556943-x9l6RiGV",
   "contactLabel": "ติดต่อเรา",
   "contactUrl": "https://line.me/ti/p/~@928gjhls",
   "logoUrl": "",
@@ -17,14 +17,15 @@
   "metaEvents": [
     "PageView",
     "Subscribe",
-    "Contact"
+    "Contact",
+    "ViewContent"
   ],
   "tiktokPixelId": "DBPJQ1RC77UASCMHDD50",
   "tiktokTestCode": "TEST29470",
   "tiktokEvents": [
     "PageView",
-    "Subscribe",
-    "Contact"
+    "Contact",
+    "Subscribe"
   ],
   "lineUrl": "https://line.me/ti/p/~@928gjhls",
   "lineTagId": "",
