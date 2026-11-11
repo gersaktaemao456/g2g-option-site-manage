@@ -34,6 +34,7 @@ function ActionLink({ href, children, className = "", ...props }) {
 
 function Crown({ className = "" }) {
   return <svg className={className} viewBox="0 0 120 58" aria-hidden="true">
+    <defs><linearGradient id="crownMetal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffffff"/><stop offset=".5" stopColor="#9fcfff"/><stop offset="1" stopColor="#347bc9"/></linearGradient></defs>
     <path d="M9 42 18 12 43 31 60 5 77 31 102 12 111 42Z" fill="url(#crownMetal)" stroke="#9fd5ff" strokeWidth="2.5" strokeLinejoin="round"/>
     <path d="M14 46H106L101 54H19Z" fill="#9ccfff"/>
     <circle cx="18" cy="11" r="4" fill="#fff"/><circle cx="60" cy="5" r="4" fill="#fff"/><circle cx="102" cy="11" r="4" fill="#fff"/>
@@ -194,8 +195,8 @@ export default function Home() {
             <div className="td-hero-copy">
               <p className="td-eyebrow"><i />{c.eyebrow}</p>
               <div className="td-hero-brand"><Crown className="td-hero-crown" /><h1>{c.brand}</h1></div>
-              <p className="td-hero-tagline">{c.headline} <span>{c.highlight}</span></p>
-              <p className="td-lead">{c.description}</p>
+              <p className="td-hero-tagline">ก้าวสู่ความสำเร็จ <span>ไปด้วยกัน</span></p>
+              <p className="td-lead">มั่นใจ ปลอดภัย พร้อมดูแลคุณตลอด 24 ชั่วโมง</p>
               <div className="td-benefit-list">
                 {benefits.map((item) => <div className="td-benefit" key={item.title}><span>{item.icon}</span><div><strong>{item.title}</strong><small>{item.text}</small></div></div>)}
               </div>
