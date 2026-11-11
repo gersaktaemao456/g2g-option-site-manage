@@ -23,7 +23,7 @@ export async function PUT(req){
   const current=await readFile();if(!current.ok)throw new Error("อ่านค่าปัจจุบันจาก GitHub ไม่สำเร็จ");
   const file=await current.json();
   const previous=JSON.parse(Buffer.from(file.content.replace(/\\n/g,""),"base64").toString("utf8"));
-  const config={...previous,...incoming};
+  const config={...previous,...incoming};\n  for(const key of Object.keys(config)){if(/(access.?token|api.?secret|secret.?key)/i.test(key))delete config[key]}
   const url=`https://api.github.com/repos/${repo}/contents/${path}`;
   const saved=await fetch(url,{method:"PUT",headers:{...headers(),"Content-Type":"application/json"},body:JSON.stringify({message:"Update G2G OPTION settings",content:Buffer.from(JSON.stringify(config,null,2),"utf8").toString("base64"),sha:file.sha,branch})});
   const result=await saved.json();if(!saved.ok)throw new Error(result.message||"GitHub บันทึกไม่สำเร็จ");
