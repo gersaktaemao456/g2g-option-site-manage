@@ -34,47 +34,47 @@ function ActionLink({ href, children, className = "", ...props }) {
 
 function G2GMascot() {
   return (
-    <div className="td-mascot-wrap" role="img" aria-label="มาสคอตแมวทองนำโชคของ G2G OPTION">
+    <div className="td-mascot-wrap" role="img" aria-label="มาสคอตแมวขาวน้ำเงินของ G2G OPTION">
       <div className="td-mascot-glow" />
       <svg viewBox="0 0 360 360" className="td-mascot" aria-hidden="true">
         <defs>
-          <linearGradient id="g2gCatGold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#fff1c5" />
-            <stop offset="45%" stopColor="#e7c877" />
-            <stop offset="100%" stopColor="#b78f3f" />
+          <linearGradient id="g2gCatBlue" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="45%" stopColor="#8fc2ff" />
+            <stop offset="100%" stopColor="#1265ed" />
           </linearGradient>
-          <linearGradient id="g2gCatBelly" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#fffdf2" />
-            <stop offset="100%" stopColor="#f2dfa5" />
+          <linearGradient id="g2gCatWhite" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#dceaff" />
           </linearGradient>
         </defs>
         <ellipse cx="180" cy="320" rx="124" ry="16" fill="#bda66d" opacity=".24" />
-        <path d="M82 119 L65 42 L137 79 Z" fill="url(#g2gCatGold)" stroke="#a48648" strokeWidth="3" strokeLinejoin="round" />
-        <path d="M278 119 L295 42 L223 79 Z" fill="url(#g2gCatGold)" stroke="#a48648" strokeWidth="3" strokeLinejoin="round" />
-        <path d="M85 106 L78 63 L118 82 Z" fill="#fff0bb" />
-        <path d="M275 106 L282 63 L242 82 Z" fill="#fff0bb" />
-        <path d="M81 156 C73 231 82 288 117 307 C145 320 215 320 243 307 C278 288 287 231 279 156 C269 102 224 75 180 75 C136 75 91 102 81 156 Z" fill="url(#g2gCatGold)" stroke="#a48648" strokeWidth="3" />
+        <path d="M82 119 L65 42 L137 79 Z" fill="url(#g2gCatGold)" stroke="#5b91d9" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M278 119 L295 42 L223 79 Z" fill="url(#g2gCatGold)" stroke="#5b91d9" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M85 106 L78 63 L118 82 Z" fill="#dceaff" />
+        <path d="M275 106 L282 63 L242 82 Z" fill="#dceaff" />
+        <path d="M81 156 C73 231 82 288 117 307 C145 320 215 320 243 307 C278 288 287 231 279 156 C269 102 224 75 180 75 C136 75 91 102 81 156 Z" fill="url(#g2gCatGold)" stroke="#5b91d9" strokeWidth="3" />
         <path d="M136 192 C138 245 152 284 180 284 C208 284 222 245 224 192 C202 207 158 207 136 192 Z" fill="url(#g2gCatBelly)" />
-        <circle cx="138" cy="154" r="12" fill="#292316" />
-        <circle cx="222" cy="154" r="12" fill="#292316" />
+        <circle cx="138" cy="154" r="12" fill="#102b57" />
+        <circle cx="222" cy="154" r="12" fill="#102b57" />
         <circle cx="142" cy="150" r="4" fill="#fff" />
         <circle cx="226" cy="150" r="4" fill="#fff" />
         <path d="M165 176 Q180 184 195 176" fill="none" stroke="#80652f" strokeWidth="3" strokeLinecap="round" />
-        <path d="M172 186 Q180 198 188 186 Q180 192 172 186 Z" fill="#d16a6a" />
-        <path d="M75 180 Q40 172 42 187 Q63 188 75 186 M285 180 Q320 172 318 187 Q297 188 285 186 M75 197 Q43 198 45 210 Q64 208 75 202 M285 197 Q317 198 315 210 Q296 208 285 202" fill="none" stroke="#a48648" strokeWidth="2" strokeLinecap="round" />
-        <path d="M113 276 C98 234 115 207 134 214 C152 220 156 255 145 279 Z" fill="url(#g2gCatGold)" stroke="#a48648" strokeWidth="3" />
-        <path d="M125 238 C131 251 137 260 145 259 C152 258 150 240 139 229 Z" fill="#fff0bb" />
-        <circle cx="131" cy="230" r="7" fill="#fff0bb" />
+        <path d="M172 186 Q180 198 188 186 Q180 192 172 186 Z" fill="#ff7e9d" />
+        <path d="M75 180 Q40 172 42 187 Q63 188 75 186 M285 180 Q320 172 318 187 Q297 188 285 186 M75 197 Q43 198 45 210 Q64 208 75 202 M285 197 Q317 198 315 210 Q296 208 285 202" fill="none" stroke="#5b91d9" strokeWidth="2" strokeLinecap="round" />
+        <path d="M113 276 C98 234 115 207 134 214 C152 220 156 255 145 279 Z" fill="url(#g2gCatGold)" stroke="#5b91d9" strokeWidth="3" />
+        <path d="M125 238 C131 251 137 260 145 259 C152 258 150 240 139 229 Z" fill="#dceaff" />
+        <circle cx="131" cy="230" r="7" fill="#dceaff" />
         <circle cx="131" cy="230" r="3" fill="#c8a75b" />
-        <path d="M239 307 C267 302 288 282 289 258 C291 282 283 305 263 315 Z" fill="#a67f35" />
-        <path d="M70 297 C98 316 262 316 290 297 C280 318 246 328 180 328 C114 328 80 318 70 297 Z" fill="#fff3c7" opacity=".65" />
-        <path d="M112 108 C117 93 129 85 138 83 M248 108 C243 93 231 85 222 83" fill="none" stroke="#a48648" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M239 307 C267 302 288 282 289 258 C291 282 283 305 263 315 Z" fill="#1265ed" />
+        <path d="M70 297 C98 316 262 316 290 297 C280 318 246 328 180 328 C114 328 80 318 70 297 Z" fill="#dceaff" opacity=".65" />
+        <path d="M112 108 C117 93 129 85 138 83 M248 108 C243 93 231 85 222 83" fill="none" stroke="#5b91d9" strokeWidth="2.5" strokeLinecap="round" />
         <circle cx="120" cy="180" r="12" fill="#f5a3a3" opacity=".42" />
         <circle cx="240" cy="180" r="12" fill="#f5a3a3" opacity=".42" />
         <path d="M150 105 Q180 88 210 105" fill="none" stroke="#fff5d9" strokeWidth="5" strokeLinecap="round" opacity=".75" />
       </svg>
       <span className="td-mascot-chip td-chip-left">G2G OPTION</span>
-      <span className="td-mascot-chip td-chip-right">LUCKY MASCOT ✦</span>
+      <span className="td-mascot-chip td-chip-right">BLUE TEAM ✦</span>
     </div>
   );
 }
