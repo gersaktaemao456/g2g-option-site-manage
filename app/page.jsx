@@ -113,6 +113,45 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const metaId = String(c.metaPixelId || "").trim();
+    if (metaId) {
+      if (!window.fbq) {
+        const fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
+        fbq.queue = []; fbq.loaded = true; fbq.version = "2.0"; window.fbq = fbq;
+        const script = document.createElement("script"); script.async = true; script.src = "https://connect.facebook.net/en_US/fbevents.js";
+        document.head.appendChild(script);
+      }
+      if (!window.__g2gMetaPixelIds) window.__g2gMetaPixelIds = {};
+      if (!window.__g2gMetaPixelIds[metaId]) {
+        window.__g2gMetaPixelIds[metaId] = true;
+        window.fbq("init", metaId);
+        window.fbq("track", "PageView");
+      }
+    }
+    const tikTokId = String(c.tiktokPixelId || "").trim();
+    if (tikTokId) {
+      if (!window.ttq) {
+        const ttq = window.ttq = [];
+        ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+        ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; };
+        for (let i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+        ttq.load = function (id) {
+          const script = document.createElement("script"); script.type = "text/javascript"; script.async = true;
+          script.src = "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=" + id + "&lib=ttq";
+          const first = document.getElementsByTagName("script")[0]; first.parentNode.insertBefore(script, first);
+        };
+      }
+      if (!window.__g2gTikTokPixelIds) window.__g2gTikTokPixelIds = {};
+      if (!window.__g2gTikTokPixelIds[tikTokId]) {
+        window.__g2gTikTokPixelIds[tikTokId] = true;
+        window.ttq.load(tikTokId);
+        window.ttq.page();
+      }
+    }
+  }, [c.metaPixelId, c.tiktokPixelId]);
+
   const registerUrl = safeUrl(c.registerUrl);
   const loginUrl = safeUrl(c.loginUrl);
   const contactUrl = safeUrl(c.contactUrl);
